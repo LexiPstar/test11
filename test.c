@@ -266,39 +266,235 @@
 //	return 0;
 //}
 
-int is_lynumber(int a)
-{
-	//判断实现水仙花数
-	int count = 1;
-	int tmp = a;
-	int sum = 0;
-	//1.计算有几位数 ->count
-	while (tmp / 10)
-	{
-		count++;
-		tmp /= 10;
-	}
-	//2.取得每一位数字
-	tmp = a;
-	while (tmp)
-	{
-		sum += pow(tmp % 10, count);
-		tmp /= 10;
-	}
-	if (sum == a)
-		return 1;
-	else
-		return 0;
-	//return sum == a;
-}
+//int is_lynumber(int a)
+//{
+//	//判断实现水仙花数
+//	int count = 1;
+//	int tmp = a;
+//	int sum = 0;
+//	//1.计算有几位数 ->count
+//	while (tmp / 10)
+//	{
+//		count++;
+//		tmp /= 10;
+//	}
+//	//2.取得每一位数字
+//	tmp = a;
+//	while (tmp)
+//	{
+//		sum += pow(tmp % 10, count);
+//		tmp /= 10;
+//	}
+//	if (sum == a)
+//		return 1;
+//	else
+//		return 0;
+//	//return sum == a;
+//}
+//
+//int main()
+//{
+//	int a = 0;
+//	for (a = 0; a <= 100000; a++)
+//	{
+//		if(is_lynumber(a))
+//			printf("%d  ", a);
+//	}
+//	return 0;
+//}
 
+
+//int main()
+//{
+//	int line = 0;
+//	scanf("%d", &line);
+//	int i = 0;
+//	for (i = 0; i < line; i++)
+//	{
+//		int j = 0;
+//		//打印空格
+//		for (j = 0; j < line - 1 - i; j++)
+//		{
+//			printf(" ");
+//		}
+//		//打印*
+//		for (j = 0; j < 2 * i + 1; j++)
+//		{
+//			printf("*");
+//		}
+//		printf("\n");
+//	}
+//	for (i = 0; i < line - 1; i++)
+//	{
+//		int j = 0;
+//		//打印空格
+//		for (j = 0; j < i + 1; j++)
+//		{
+//			printf(" ");
+//		}
+//		//打印*
+//		for (j = 0; j < 2 * (line-1-i) - 1; j++)
+//		{
+//			printf("*");
+//		}
+//		printf("\n");
+//	}
+//	return 0;
+//}
+
+
+////喝汽水，1瓶汽水1元，2个空瓶可以换一瓶汽水，给20元，可以多少汽水(编程实现)
+
+//int main()
+//{
+//	int money = 0;
+//	scanf("%d", &money);
+//	int total = money;
+//	int empty = money;
+//	//置换
+//	while (empty >= 2)
+//	{
+//		total = total + empty / 2;
+//		empty = empty / 2 + empty % 2;
+//	}
+//	printf("%d\n", total);
+//	return 0;
+//}
+
+
+//int cnt = 0;
+//int fib(int n)
+//{
+//	cnt++;
+//	if (n == 0)
+//		return 1;
+//	else if (n == 1)
+//		return 2;
+//	else 
+//		return fib(n - 1) + fib(n - 2);
+//}
+//int main()
+//{
+//	fib(8);
+//	printf("%d", cnt);
+//	return 0;
+//}
+
+//标题:求最小公倍数|时间限制:1秒|内存限制:32768K
+//正整数A和正整数B 的最小公倍数是指 能被A和B整除的最小的正整数值，
+//设计一个算法，求输入A和B的最小公倍数。
+//1 <= a, b <= 100000数据范围:
+//int main()
+//{
+//	int a = 0;
+//	int b = 0;
+//	scanf("%d %d", &a, &b);
+//	//1.
+//	//int n = (a > b ? a : b);
+//	//计算最小公倍数
+//	//while (1)
+//	//{
+//	//	if ((n % a == 0) && (n % b == 0))
+//	//	{
+//	//		break;
+//	//	}
+//	//	n++;
+//	//}
+//	//printf("%d\n", n);
+//	
+//	//2.
+//	//最小公倍数
+//	int i = 1;
+//	while (a * i % b)
+//	{
+//		i++;
+//	}
+//	printf("%d", a * i);
+//	return 0;
+//}
+
+
+//标题:倒置字符串|时间限制:1秒|内存限制:32768K
+//将一句话的单词进行倒置，标点不倒置。
+//比如Iikebeiing.经过函数后变为:beiing.likel
+//输入描述:
+//每个测试输入包含1个测试用例 : I1ikebeijing.输入用例长度不超过100
+//输出描述 :
+//依次输出倒置之后的字符串，以空格分割
+
+void reverse(char* left, char* right)
+{
+	assert(left);
+	assert(right);
+	while (left <= right)
+	{
+		char tmp = *left;
+		*left = *right;
+		*right = tmp;
+		left++;
+		right--;
+	}
+}
 int main()
 {
-	int a = 0;
-	for (a = 0; a <= 100000; a++)
+	char s[101] = { 0 };
+	fgets(s, 101, stdin);//fgets 防止输入溢出
+	s[strcspn(s, "\n")] = '\0';//去掉fgets读取的换行符\n
+	//逆置
+	//1.逆序字符串
+	int len = strlen(s) - 1;
+	reverse(s, s + len);
+	//2.逆序单词
+	char* start = s;
+	while (*start)
 	{
-		if(is_lynumber(a))
-			printf("%d  ", a);
+		char* end = start;
+		while ((*end != ' ') && (*end != '\0'))
+		{
+			end++;
+		}
+		reverse(start, end-1);
+		if (*end != '\0')
+			end++;
+		start = end;
 	}
+	//输出
+	printf("%s\n", s);
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//逆序字符串
+//void reverse(char* ss, int left, int right)
+//{
+//	while (left <= right)
+//	{
+//		char tmp = ss[left];
+//		ss[left] = ss[right];
+//		ss[right] = tmp;
+//		left++;
+//		right--;
+//	}
+//}
+//int main()
+//{
+//	char s[101] = { 0 };
+//	fgets(s,101,stdin);//fgets 防止输入溢出
+//	s[strcspn(s, "\n")] = '\0';//去掉fgets读取的换行符\n
+//	int left = 0;
+//	int right = strlen(s) - 1;
+//	reverse(s, left, right);
+//	printf("%s\n", s);
+//	return 0;
+//}
